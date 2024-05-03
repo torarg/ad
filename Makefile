@@ -5,7 +5,7 @@ COMMANDS_PATH = $(CONFIG_PATH)/commands
 TEMPLATE_PATH = $(CONFIG_PATH)/templates
 FUNCTIONS_PATH = $(CONFIG_PATH)/functions
 
-install: uninstall
+install:
 	install -m 0755 -d $(CONFIG_PATH)
 	install -m 0755 ./bin/ad $(BIN_PATH)
 	install -m 0755 ./config $(CONFIG_PATH)/
