@@ -1,5 +1,6 @@
-CONFIG_PATH = /etc/ad
-BIN_PATH = /usr/local/bin/ad
+PREFIX ?= /usr/local
+CONFIG_PATH = ${PREFIX}/etc/ad
+BIN_PATH = ${PREFIX}/bin/ad
 COMMANDS_PATH = $(CONFIG_PATH)/commands
 TEMPLATE_PATH = $(CONFIG_PATH)/templates
 FUNCTIONS_PATH = $(CONFIG_PATH)/functions
@@ -19,3 +20,5 @@ uninstall:
 	rm -r $(CONFIG_PATH) $(BIN_PATH)
 
 all:
+
+clean:
