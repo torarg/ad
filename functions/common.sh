@@ -54,13 +54,18 @@ write_inventory() {
     for host in ${HOSTS[@]}; do
         hostname="$(echo $host | cut -d ':' -f 1)"
         host_ip="$(echo $host | cut -s -d ':' -f 2)"
+
         echo "Host $hostname" >> $SSH_CONFIG
         echo "  User $SSH_USER" >> $SSH_CONFIG
         echo "$hostname" >> $INVENTORY_HOSTS_FILE
+
         if [ -n "$host_ip" ]; then
+            echo "  Hostname $host_ip" >> $SSH_CONFIG
+        elif [ -n "$host_ip" ] && [ -f $HOST_VARS_DIR/$hostname ]; then
             merged_vars="$(yq -y -s '.[0] * .[1]' <(echo ansible_host: $host_ip) $HOST_VARS_DIR/$hostname)"
             echo "$merged_vars" > $HOST_VARS_DIR/$hostname
-            echo "  Hostname $host_ip" >> $SSH_CONFIG
+        elif [ -n "$host_ip" ] && [ ! -f $HOST_VARS_DIR/$hostname ]; then
+            echo "ansible_host: $host_ip" > $HOST_VARS_DIR/$hostname
         fi
     done
 
