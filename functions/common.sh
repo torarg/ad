@@ -69,7 +69,7 @@ write_inventory() {
         fi
     done
 
-    rm $INVENTORY_GROUPS_FILE
+    rm -f $INVENTORY_GROUPS_FILE
     for role in "${ROLES[@]}"; do
         group_name=$(get_group_from_role $role)
         if grep "$group_name" $INVENTORY_CUSTOM_FILE; then
