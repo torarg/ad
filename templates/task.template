@@ -1,0 +1,6 @@
+  - name: include role ${role_name}
+    import_role:
+        name: ${role_name}
+    when: '"${group_name}" in group_names'
+    tags:
+      - ${group_name}

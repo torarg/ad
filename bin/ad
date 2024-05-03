@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+CONFIG_DIR="/etc/ad"
+. $CONFIG_DIR/config || exit 1
+
+usage="usage: ad init|clean|update [OPTIONS]"
+parse_args() {
+    if [ $# -lt 1 ]; then
+        echo $usage
+        return 1
+    fi
+
+    command="$1"
+    shift 1
+    full_command=""
+    case "$command" in
+        init)
+            full_command="$COMMAND_DIR/init.sh $@"
+            ;;
+        clean)
+            full_command="$COMMAND_DIR/clean.sh $@"
+            ;;
+        update)
+            full_command="$COMMAND_DIR/update.sh $@"
+            ;;
+        run)
+            full_command="$COMMAND_DIR/run.sh $@"
+            ;;
+        *)
+            echo "error: invalid command"
+            echo $usage
+            return 1
+            ;;
+    esac
+}
+
+parse_args $@ || exit 1
+$full_command
