@@ -17,3 +17,5 @@ install: uninstall
 
 uninstall:
 	rm -r $(CONFIG_PATH) $(BIN_PATH)
+
+all:
