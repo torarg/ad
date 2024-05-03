@@ -1,7 +1,7 @@
 # about
 ad is my opioniated approach on managing ansible deployments.
 It creates an almost ready to use ansible deployment directory
-by 
+by:
 - writing an inventory based on given hosts
 - creating host groups for each given role (all hosts are in all groups by default)
 - writing a playbook which
