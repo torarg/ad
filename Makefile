@@ -28,11 +28,11 @@ all:
 clean:
 
 clean-openbsd-package:
-	rm -r /usr/ports/pobj/ad-*
+	rm -fr /usr/ports/pobj/ad-*
 	rm -fr /usr/ports/pobj/ad-*/
 	rm -fr /usr/ports/packages/amd64/all/ad-*.tgz
 	rm -fr /usr/ports/distfiles/ad-*.tar.gz
-	rm -rf $(OPENBSD_PORTS_DIR)
+	rm -fr $(OPENBSD_PORTS_DIR)
 
 openbsd-package: clean-openbsd-package
 	cp -r openbsd_package/ $(OPENBSD_PORTS_DIR)
