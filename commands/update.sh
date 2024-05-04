@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-CONFIG_DIR="/etc/ad"
 . $CONFIG_DIR/config || exit 1
 . $FUNCTION_DIR/update.sh || exit 1
 

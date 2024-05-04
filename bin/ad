@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-CONFIG_DIR="/etc/ad"
+CONFIG_DIR=/etc/ad
+CONFIG_DIR_OVERRIDES="~/.ad /usr/local/etc"
+for path in "$CONFIG_DIR_OVERRIDES"; do
+    if [ -d "$path" ]; then
+        CONFIG_DIR=$path
+    fi
+done
 . $CONFIG_DIR/config || exit 1
 
 usage="usage: ad init|clean|update [OPTIONS]"
@@ -12,19 +18,19 @@ parse_args() {
 
     command="$1"
     shift 1
-    full_command=""
+    full_command="$COMMAND_DIR/"
     case "$command" in
         init)
-            full_command="$COMMAND_DIR/init.sh $@"
+            full_command="${full_command}/init.sh $@"
             ;;
         clean)
-            full_command="$COMMAND_DIR/clean.sh $@"
+            full_command="${full_command}/clean.sh $@"
             ;;
         update)
-            full_command="$COMMAND_DIR/update.sh $@"
+            full_command="${full_command}/update.sh $@"
             ;;
         run)
-            full_command="$COMMAND_DIR/run.sh $@"
+            full_command="${full_command}/run.sh $@"
             ;;
         *)
             echo "error: invalid command"
@@ -35,4 +41,4 @@ parse_args() {
 }
 
 parse_args $@ || exit 1
-$full_command
+CONFIG_DIR="$CONFIG_DIR" $full_command
