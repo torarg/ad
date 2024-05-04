@@ -1,13 +1,13 @@
-PREFIX ?= /usr/local
-CONFIG_PATH = ${PREFIX}/etc/ad
-BIN_PATH = ${PREFIX}/bin/ad
-COMMANDS_PATH = $(CONFIG_PATH)/commands
-TEMPLATE_PATH = $(CONFIG_PATH)/templates
-FUNCTIONS_PATH = $(CONFIG_PATH)/functions
-OPENBSD_PORTS_DIR = /usr/ports/sysutils/ad
-OPENBSD_PKG_DIR = /usr/ports/packages/amd64/all
-OPENBSD_SIGNED_PKG_DIR = /usr/ports/packages/amd64/all/signed
-OPENBSD_PKG_KEY = ~/1wilson-pkg.sec
+PREFIX					?=	/usr/local
+CONFIG_PATH 			 =	${PREFIX}/etc/ad
+BIN_PATH				 = 	${PREFIX}/bin/ad
+COMMANDS_PATH 			 = 	$(CONFIG_PATH)/commands
+TEMPLATE_PATH 			 = 	$(CONFIG_PATH)/templates
+FUNCTIONS_PATH 			 = 	$(CONFIG_PATH)/functions
+OPENBSD_PORTS_DIR 		 = 	/usr/ports/sysutils/ad
+OPENBSD_PKG_DIR 		 = 	/usr/ports/packages/amd64/all
+OPENBSD_SIGNED_PKG_DIR 	 = 	/usr/ports/packages/amd64/all/signed
+OPENBSD_PKG_KEY 		 = 	~/1wilson-pkg.sec
 
 install:
 	install -m 0755 -d $(CONFIG_PATH)
