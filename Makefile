@@ -1,5 +1,5 @@
 PREFIX					?=	/usr/local
-CONFIG_PATH 			 =	${PREFIX}/etc/ad
+CONFIG_PATH 			 =	${PREFIX}/share/ad
 BIN_PATH				 = 	${PREFIX}/bin/ad
 COMMANDS_PATH 			 = 	$(CONFIG_PATH)/commands
 TEMPLATE_PATH 			 = 	$(CONFIG_PATH)/templates

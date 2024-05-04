@@ -1,7 +1,7 @@
 #!/bin/sh
 
-CONFIG_DIR=/etc/ad
-CONFIG_DIR_OVERRIDES="~/.ad /usr/local/etc/ad"
+CONFIG_DIR=""
+CONFIG_DIR_OVERRIDES="~/.ad /etc/ad /usr/local/share/ad"
 for path in $CONFIG_DIR_OVERRIDES; do
     if [ -d "$path" ]; then
         CONFIG_DIR=$path
