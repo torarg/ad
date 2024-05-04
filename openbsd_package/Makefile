@@ -15,6 +15,6 @@ SITES =		https://github.com/torarg/ad/releases/download/${V}/
 SITES =		https://github.com/torarg/ad/archive/refs/tags/
 DISTFILES = ad-{}${V}${EXTRACT_SUFX}
 
-RUN_DEPENDS = sysutils/ansible devel/git devel/git-crypt shells/bash security/gnupg textproc/yq
+RUN_DEPENDS = sysutils/ansible devel/git devel/git-crypt security/gnupg textproc/yq
 
 .include <bsd.port.mk>
