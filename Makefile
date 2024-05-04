@@ -27,11 +27,22 @@ all:
 
 clean:
 
-openbsd-package:
+clean-openbsd-package:
+	rm -r /usr/ports/pobj/ad-*
+	rm -fr /usr/ports/pobj/ad-*/
+	rm -fr /usr/ports/packages/amd64/all/ad-*.tgz
+	rm -fr /usr/ports/distfiles/ad-*.tar.gz
 	rm -rf $(OPENBSD_PORTS_DIR)
+
+openbsd-package: clean-openbsd-package
 	cp -r openbsd_package/ $(OPENBSD_PORTS_DIR)
 	cd /usr/ports/sysutils/ad && \
-	make clean && make package
+	  make clean && \
+      make makesum && \
+	  make build && \
+	  make fake && \
+	  make update-plist && \
+	  make package
 	pkg_sign -C -o $(OPENBSD_SIGNED_PKG_DIR) -S $(OPENBSD_PKG_DIR) -s signify2 -s $(OPENBSD_PKG_KEY)
 
 publish-openbsd-package: openbsd-package

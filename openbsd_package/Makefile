@@ -12,9 +12,9 @@ MAINTAINER =		Michael Wilson <mw@1wilson.org>
 PERMIT_PACKAGE =	Yes
 
 SITES =		https://github.com/torarg/ad/releases/download/${V}/
-SITES =		https://github.com/torarg/ad/archive/refs/tags/${V}/
+SITES =		https://github.com/torarg/ad/archive/refs/tags/
 DISTFILES = ad-{}${V}${EXTRACT_SUFX}
 
-RUN_DEPENDS = sysutils/ansible devel/git devel/git-crypt shells/bash
+RUN_DEPENDS = sysutils/ansible devel/git devel/git-crypt shells/bash security/gnupg
 
 .include <bsd.port.mk>
