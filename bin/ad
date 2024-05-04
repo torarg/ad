@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 CONFIG_DIR=/etc/ad
-CONFIG_DIR_OVERRIDES="~/.ad /usr/local/etc"
-for path in "$CONFIG_DIR_OVERRIDES"; do
+CONFIG_DIR_OVERRIDES="~/.ad /usr/local/etc/ad"
+for path in $CONFIG_DIR_OVERRIDES; do
     if [ -d "$path" ]; then
         CONFIG_DIR=$path
     fi
