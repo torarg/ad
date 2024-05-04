@@ -29,6 +29,7 @@ clean:
 
 clean-openbsd-package:
 	rm -fr /usr/ports/pobj/ad-*
+	rm -fr rm  -r /usr/ports/plist/amd64/ad-*
 	rm -fr /usr/ports/pobj/ad-*/
 	rm -fr /usr/ports/packages/amd64/all/ad-*.tgz
 	rm -fr /usr/ports/distfiles/ad-*.tar.gz
