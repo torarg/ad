@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 . $CONFIG_DIR/config || exit 1
 . $FUNCTION_DIR/init.sh || exit 1
 

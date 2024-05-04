@@ -18,15 +18,18 @@ cleanup() {
 
 update_roles() {
         rm -fr $ROLES_DIR/*
-    for role in "${ROLES[@]}"; do
+    for role in $ROLES; do
         role_dir="${ROLES_DIR}/${role}"
         group_name=$(get_group_from_role $role)
         group_vars_file=$GROUP_VARS_DIR/$group_name
+        role_defaults_file=$GROUP_VARS_DIR/$group_name.defaults
         mkdir -p $role_dir
         cp -r $GIT_DIR/$role/* $role_dir/
         if [ -f "$GROUP_VARS_DIR/$group_name" ]; then
-            merged_vars="$(yq -y -s '.[0] * .[1]' <(cat $GIT_DIR/$role/defaults/*) $group_vars_file)"
+            cat $GIT_DIR/$role/defaults/* > $role_defaults_file
+            merged_vars="$(yq -y -s '.[0] * .[1]' $role_defaults_file $group_vars_file)"
             echo "$merged_vars" > $group_vars_file
+            rm $role_defaults_file
         else
             cat $GIT_DIR/$role/defaults/* | yq -y > $GROUP_VARS_DIR/$group_name
         fi
@@ -38,7 +41,7 @@ update_roles() {
 
 write_playbook() {
     cp $PLAYBOOK_TEMPLATE $PLAYBOOK_PATH
-    for role in "${ROLES[@]}"; do
+    for role in $ROLES; do
         group_name=$(get_group_from_role $role)
         role_name=${role}
         export group_name role_name
@@ -51,7 +54,7 @@ write_inventory() {
     [ ! -f $INVENTORY_CUSTOM_FILE ] && touch $INVENTORY_CUSTOM_FILE
 
     echo "" > $SSH_CONFIG
-    for host in ${HOSTS[@]}; do
+    for host in $HOSTS; do
         hostname="$(echo $host | cut -d ':' -f 1)"
         host_ip="$(echo $host | cut -s -d ':' -f 2)"
 
@@ -62,15 +65,18 @@ write_inventory() {
         if [ -n "$host_ip" ]; then
             echo "  Hostname $host_ip" >> $SSH_CONFIG
         elif [ -n "$host_ip" ] && [ -f $HOST_VARS_DIR/$hostname ]; then
-            merged_vars="$(yq -y -s '.[0] * .[1]' <(echo ansible_host: $host_ip) $HOST_VARS_DIR/$hostname)"
+            new_host_vars="$HOST_VARS_DIR/$hostname.new"
+            echo ansible_host: $host_ip > $new_host_vars
+            merged_vars="$(yq -y -s '.[0] * .[1]' $new_host_vars $HOST_VARS_DIR/$hostname)"
             echo "$merged_vars" > $HOST_VARS_DIR/$hostname
+            rm $new_host_vars
         elif [ -n "$host_ip" ] && [ ! -f $HOST_VARS_DIR/$hostname ]; then
             echo "ansible_host: $host_ip" > $HOST_VARS_DIR/$hostname
         fi
     done
 
     rm -f $INVENTORY_GROUPS_FILE
-    for role in "${ROLES[@]}"; do
+    for role in $ROLES; do
         group_name=$(get_group_from_role $role)
         if grep "$group_name" $INVENTORY_CUSTOM_FILE; then
             continue

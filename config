@@ -1,5 +1,5 @@
-TEMPLATE_DIR="${CONFIG_DIR}/templates/"
-COMMAND_DIR="${CONFIG_DIR}/commands/"
+TEMPLATE_DIR="${CONFIG_DIR}/templates"
+COMMAND_DIR="${CONFIG_DIR}/commands"
 PLAYBOOK_TEMPLATE=$TEMPLATE_DIR/playbook.template
 TASK_TEMPLATE=$TEMPLATE_DIR/task.template
 INVENTORY_TEMPLATE=$TEMPLATE_DIR/inventory.template

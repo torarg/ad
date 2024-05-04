@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 CONFIG_DIR=/etc/ad
 CONFIG_DIR_OVERRIDES="~/.ad /usr/local/etc/ad"
@@ -18,7 +18,7 @@ parse_args() {
 
     command="$1"
     shift 1
-    full_command="$COMMAND_DIR/"
+    full_command="/bin/sh $COMMAND_DIR"
     case "$command" in
         init)
             full_command="${full_command}/init.sh $@"
