@@ -7,7 +7,7 @@ FUNCTIONS_PATH 			 = 	$(CONFIG_PATH)/functions
 OPENBSD_PORTS_DIR 		 = 	/usr/ports/sysutils/ad
 OPENBSD_PKG_DIR 		 = 	/usr/ports/packages/amd64/all
 OPENBSD_SIGNED_PKG_DIR 	 = 	/usr/ports/packages/amd64/all/signed
-OPENBSD_PKG_KEY 		 = 	~/1wilson-pkg.sec
+OPENBSD_PKG_KEY 		 = 	~/keys/signify/1wilson-pkg.sec
 
 install:
 	install -m 0755 -d $(CONFIG_PATH)
@@ -48,5 +48,8 @@ openbsd-package: clean-openbsd-package
 
 publish-openbsd-package: openbsd-package
 	scp $(OPENBSD_SIGNED_PKG_DIR)/ad-*.tgz www:
-	ssh www "doas mv ad-*.tgz /var/www/htdocs/pub/OpenBSD/packages/"
-	ssh www "doas chown www /var/www/htdocs/pub/OpenBSD/packages/ad-*.tgz"
+	ssh www "doas cp ad-*.tgz /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/"
+	ssh www "doas cp ad-*.tgz /var/www/htdocs/pub/OpenBSD/7.5/packages/amd64/"
+	ssh www "doas rm ad-*.tgz"
+	ssh www "doas chown www /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/ad-*.tgz"
+	ssh www "doas chown www /var/www/htdocs/pub/OpenBSD/7.5/packages/amd64/ad-*.tgz"
