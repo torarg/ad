@@ -36,6 +36,7 @@ update_roles() {
     echo "ansible_ssh_private_key_file: ./.ssh/ansible_ssh_key" > $GROUP_VARS_DIR/ansible_deployment
     echo "ansible_ssh_public_key_file: ./.ssh/ansible_ssh_key.pub" >> $GROUP_VARS_DIR/ansible_deployment
     echo "ansible_user: $SSH_USER" >> $GROUP_VARS_DIR/ansible_deployment
+    echo "ansible_common_remote_group: $SSH_USER" >> $GROUP_VARS_DIR/ansible_deployment
     done
 }
 
