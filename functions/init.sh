@@ -9,7 +9,7 @@ parse_args() {
         case "${flag}" in
             r) GIT_URL=$OPTARG ;;
             b) GIT_BRANCH=$OPTARG ;;
-            f) ENV_FILE=$OPTARG ;;
+            f) ENV_FILE=$(realpath $OPTARG) ;;
             g) GPG_USER=$OPTARG ;;
             v) VERBOSE=1 ;;
             h) print_usage && return 1 ;;
