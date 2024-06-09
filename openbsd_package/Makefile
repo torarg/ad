@@ -1,5 +1,5 @@
 DISTNAME		=	ad-${V}
-V				=	0.0.1
+V				=	0.0.2
 COMMENT			=	helper to create and manage ansible deployments.
 CATEGORIES		=	sysutils
 
