@@ -21,6 +21,7 @@ SSH_USER=ansible
 SSH_DIR=$ROOT_DIR/.ssh
 SSH_CONFIG=$SSH_DIR/config
 SSH_KEY_FILE=$SSH_DIR/ansible_ssh_key
+SSH_PUBKEY_FILE=$SSH_DIR/ansible_ssh_key.pub
 GIT_DIR=$ROOT_DIR/.roles
 
 DEPLOYMENT_GIT_DIR=$ROOT_DIR/.git

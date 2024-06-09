@@ -41,4 +41,5 @@ parse_args() {
 }
 
 parse_args $@ || exit 1
+check_environment || exit 1
 CONFIG_DIR="$CONFIG_DIR" $full_command

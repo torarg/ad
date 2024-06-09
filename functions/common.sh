@@ -97,3 +97,43 @@ clone_roles_repo() {
     rm -rf $GIT_DIR
     git clone --quiet --depth 1 --branch $GIT_BRANCH $GIT_URL $GIT_DIR > /dev/null
 }
+
+permissions_equal() {
+    target_file="$1"
+    expected_permissions="$2"
+    actual_permissions="$(stat -f "%OLp" $target_file)"
+    if [ "$actual_permissions" == "$expected_permissions" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+ensure_ssh_key_permissions_openbsd() {
+    if [ -f "$SSH_KEY_FILE" ] && ! permissions_equal "$SSH_KEY_FILE" "600"; then
+        echo "Fixing permissions for $SSH_KEY_FILE"
+        chmod 600 "$SSH_KEY_FILE"
+    fi
+    if [ -f "$SSH_PUBKEY_FILE" ] && ! permissions_equal "$SSH_PUBKEY_FILE" "600"; then
+        echo "Fixing permissions for $SSH_PUBKEY_FILE"
+        chmod 600 "$SSH_PUBKEY_FILE"
+    fi
+}
+
+ensure_ssh_key_permissions_other() {
+    if [ -f "$SSH_KEY_FILE" ]; then
+        chmod 600 "$SSH_KEY_FILE"
+    fi
+}
+
+check_environment() {
+    os="$(uname)"
+    case "$os" in
+        "OpenBSD")
+            ensure_ssh_key_permissions_openbsd
+            ;;
+        *)
+            ensure_ssh_key_permissions_other
+            ;;
+    esac
+}
