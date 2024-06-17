@@ -17,7 +17,7 @@ cleanup() {
 }
 
 update_roles() {
-        rm -fr $ROLES_DIR/*
+    rm -fr $ROLES_DIR/*
     for role in $ROLES; do
         role_dir="${ROLES_DIR}/${role}"
         group_name=$(get_group_from_role $role)
@@ -33,11 +33,11 @@ update_roles() {
         else
             cat $GIT_DIR/$role/defaults/* | yq -y > $GROUP_VARS_DIR/$group_name
         fi
+    done
     echo "ansible_ssh_private_key_file: ./.ssh/ansible_ssh_key" > $GROUP_VARS_DIR/ansible_deployment
     echo "ansible_ssh_public_key_file: ./.ssh/ansible_ssh_key.pub" >> $GROUP_VARS_DIR/ansible_deployment
     echo "ansible_user: $SSH_USER" >> $GROUP_VARS_DIR/ansible_deployment
     echo "ansible_common_remote_group: $SSH_USER" >> $GROUP_VARS_DIR/ansible_deployment
-    done
 }
 
 write_playbook() {
