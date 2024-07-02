@@ -1,5 +1,8 @@
 # changelog
 
+## 0.0.3
+- support relative paths for ``-f`` without explicit "./"
+
 ## 0.0.2
 - add 'ansible_common_remote_group' to group_vars/ansible_deployment
 - add ssh key permission check
