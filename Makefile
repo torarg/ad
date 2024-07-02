@@ -1,13 +1,14 @@
-PREFIX					?=	/usr/local
-CONFIG_PATH 			 =	${PREFIX}/share/ad
-BIN_PATH				 = 	${PREFIX}/bin/ad
-COMMANDS_PATH 			 = 	$(CONFIG_PATH)/commands
-TEMPLATE_PATH 			 = 	$(CONFIG_PATH)/templates
-FUNCTIONS_PATH 			 = 	$(CONFIG_PATH)/functions
-OPENBSD_PORTS_DIR 		 = 	/usr/ports/sysutils/ad
-OPENBSD_PKG_DIR 		 = 	/usr/ports/packages/amd64/all
-OPENBSD_SIGNED_PKG_DIR 	 = 	/usr/ports/packages/amd64/all/signed
-OPENBSD_PKG_KEY 		 = 	~/keys/signify/1wilson-pkg.sec
+PREFIX			?=	/usr/local
+CONFIG_PATH		=	${PREFIX}/share/ad
+BIN_PATH		= 	${PREFIX}/bin/ad
+COMMANDS_PATH		= 	$(CONFIG_PATH)/commands
+TEMPLATE_PATH		= 	$(CONFIG_PATH)/templates
+FUNCTIONS_PATH		= 	$(CONFIG_PATH)/functions
+OPENBSD_PORTS_DIR	= 	/usr/ports/sysutils/ad
+OPENBSD_PKG_DIR		= 	/usr/ports/packages/amd64/all
+OPENBSD_SIGNED_PKG_DIR	= 	/usr/ports/packages/amd64/all/signed
+OPENBSD_PKG_KEY		= 	~/keys/signify/1wilson-pkg.sec
+OPENBSD_PKG_HOST	=	www
 
 install:
 	install -m 0755 -d $(CONFIG_PATH)
@@ -48,8 +49,9 @@ openbsd-package: clean-openbsd-package
 
 publish-openbsd-package: openbsd-package
 	scp $(OPENBSD_SIGNED_PKG_DIR)/ad-*.tgz www:
-	ssh www "doas cp ad-*.tgz /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/"
-	ssh www "doas cp ad-*.tgz /var/www/htdocs/pub/OpenBSD/7.5/packages/amd64/"
-	ssh www "doas rm ad-*.tgz"
-	ssh www "doas chown www /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/ad-*.tgz"
-	ssh www "doas chown www /var/www/htdocs/pub/OpenBSD/7.5/packages/amd64/ad-*.tgz"
+	ssh $(OPENBSD_PKG_HOST) "\
+		doas cp ad-*.tgz /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/ && \
+		doas cp ad-*.tgz /var/www/htdocs/pub/OpenBSD/7.5/packages/amd64/ && \
+		doas rm ad-*.tgz && \
+		doas chown www /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/ad-*.tgz && \
+		doas chown www /var/www/htdocs/pub/OpenBSD/7.5/packages/amd64/ad-*.tgz"
