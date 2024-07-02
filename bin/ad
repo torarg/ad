@@ -1,13 +1,24 @@
 #!/bin/sh
 
+CONFIG_LOADED=0
 CONFIG_DIR=""
 CONFIG_DIR_OVERRIDES="~/.ad /etc/ad /usr/local/share/ad"
-for path in $CONFIG_DIR_OVERRIDES; do
-    if [ -d "$path" ]; then
-        CONFIG_DIR=$path
+CONFIG_FILE_NAME="config"
+
+for path in "${CONFIG_DIR_OVERRIDES}"; do
+    CONFIG_DIR="${path}"
+    CONFIG_FILE="${CONFIG_DIR}/${CONFIG_FILE_NAME}"
+    if [ -f "${CONFIG_FILE}" ]; then
+        . ${CONFIG_FILE} || exit 1
+        CONFIG_LOADED=1
+        break
     fi
 done
-. $CONFIG_DIR/config || exit 1
+
+if [ $CONFIG_LOADED -ne 1 ]; then
+    echo "error: unable to find config in: ${CONFIG_DIR_OVERRIDES}"
+    exit 1
+fi
 
 usage="usage: ad init|clean|update [OPTIONS]"
 parse_args() {
