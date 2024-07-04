@@ -1,6 +1,7 @@
 # changelog
 
 ## 0.0.3
+- drop deployment arguments and only support ``-f``
 - support relative paths for ``-f`` without explicit "./"
 
 ## 0.0.2
