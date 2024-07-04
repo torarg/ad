@@ -5,7 +5,7 @@ CONFIG_DIR=""
 CONFIG_DIR_OVERRIDES="~/.ad /etc/ad /usr/local/share/ad"
 CONFIG_FILE_NAME="config"
 
-for path in "${CONFIG_DIR_OVERRIDES}"; do
+for path in $CONFIG_DIR_OVERRIDES; do
     CONFIG_DIR="${path}"
     CONFIG_FILE="${CONFIG_DIR}/${CONFIG_FILE_NAME}"
     if [ -f "${CONFIG_FILE}" ]; then

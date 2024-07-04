@@ -1,32 +1,5 @@
 print_usage() {
-    echo "usage: ad init -r GIT_REPO_URL -b BRANCH_OR_TAG -g GPG_USER ROLES ..."
-    echo "       ad init -f ENV_FILE"
-}
-
-parse_args() {
-    VERBOSE=0
-    while getopts r:b:f:h flag; do
-        case "${flag}" in
-            r) GIT_URL=$OPTARG ;;
-            b) GIT_BRANCH=$OPTARG ;;
-            f) ENV_FILE=$(realpath $OPTARG) ;;
-            g) GPG_USER=$OPTARG ;;
-            v) VERBOSE=1 ;;
-            h) print_usage && return 1 ;;
-        esac
-    done
-    shift $((OPTIND - 1))
-    ROLES="${@}"
-
-    [ -n "$ENV_FILE" ] && [ -f $ENV_FILE ] && . $ENV_FILE
-    return 0
-}
-
-validate_args() {
-    if [ -z "$GIT_URL" ] || [ -z "$GIT_BRANCH" ] || [ -z "$ROLES" ] || [ -z "$GPG_USER" ]; then
-        print_usage
-        return 1
-    fi
+    echo "usage: ad init [-v] -f ENV_FILE"
 }
 
 create_dirs() {

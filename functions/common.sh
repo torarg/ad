@@ -1,3 +1,23 @@
+parse_args() {
+    VERBOSE=0
+    while getopts f:hv flag; do
+        case "${flag}" in
+            f) ENV_FILE=$(realpath $OPTARG) ;;
+            v) VERBOSE=1 ;;
+            h) print_usage && return 1 ;;
+        esac
+    done
+    [ -n "$ENV_FILE" ] && [ -f $ENV_FILE ] && . $ENV_FILE
+    return 0
+}
+
+validate_args() {
+    if [ -z "$GIT_URL" ] || [ -z "$GIT_BRANCH" ] || [ -z "$ROLES" ] || [ -z "$GPG_USER" ]; then
+        print_usage
+        return 1
+    fi
+}
+
 get_group_from_role() {
     echo $1 | sed 's|/|_|g'
 }
