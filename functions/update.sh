@@ -1,3 +1,3 @@
 print_usage() {
-    echo "usage: ad update [-v] -f ENV_FILE"
+    echo "usage: ad update [-v|-h]"
 }

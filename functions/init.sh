@@ -1,5 +1,5 @@
 print_usage() {
-    echo "usage: ad init [-v] -f ENV_FILE"
+    echo "usage: ad init [-v|-h]"
 }
 
 create_dirs() {

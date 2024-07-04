@@ -1,13 +1,18 @@
 parse_args() {
+    ENV_FILE="./ad.env"
     VERBOSE=0
-    while getopts f:hv flag; do
+    while getopts hv flag; do
         case "${flag}" in
-            f) ENV_FILE=$(realpath $OPTARG) ;;
             v) VERBOSE=1 ;;
             h) print_usage && return 1 ;;
         esac
     done
-    [ -n "$ENV_FILE" ] && [ -f $ENV_FILE ] && . $ENV_FILE
+    if [ -n "$ENV_FILE" ] && [ -f $ENV_FILE ] ; then
+        . $ENV_FILE
+    else
+        echo "error: $ENV_FILE not found" >&1
+        return 1
+    fi
     return 0
 }
 
