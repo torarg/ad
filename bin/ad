@@ -1,5 +1,6 @@
 #!/bin/sh
 
+VERSION=0.0.3
 CONFIG_LOADED=0
 CONFIG_DIR=""
 CONFIG_DIR_OVERRIDES="~/.ad /etc/ad /usr/local/share/ad"
@@ -20,7 +21,8 @@ if [ $CONFIG_LOADED -ne 1 ]; then
     exit 1
 fi
 
-usage="usage: ad init|clean|update [OPTIONS]"
+usage="usage: ad [-hV] command [arg ...]"
+commands="commands: init update clean run show-roles show-hosts"
 parse_args() {
     if [ $# -lt 1 ]; then
         echo $usage
@@ -42,6 +44,18 @@ parse_args() {
             ;;
         run)
             full_command="${full_command}/run.sh $@"
+            ;;
+        show-roles)
+            full_command="${full_command}/show_roles.sh $@"
+            ;;
+        show-hosts)
+            full_command="${full_command}/show_hosts.sh $@"
+            ;;
+        -h)
+            full_command="echo $usage\n$commands"
+            ;;
+        -V)
+            full_command="echo ad $VERSION"
             ;;
         *)
             echo "error: invalid command"
