@@ -2,7 +2,8 @@
 . $FUNCTION_DIR/init.sh || exit 1
 
 parse_args $@ || exit 1
-validate_args || exit 1
+load_env || exit 1
+validate_env || exit 1
 
 execute create_dirs
 execute clone_roles_repo

@@ -1,5 +1,15 @@
-parse_args() {
+load_env() {
     ENV_FILE="./ad.env"
+    if [ -f $ENV_FILE ] ; then
+        . $ENV_FILE
+    else
+        echo "error: $ENV_FILE not found" >&2
+        return 1
+    fi
+    return 0
+}
+
+parse_args() {
     VERBOSE=0
     while getopts hv flag; do
         case "${flag}" in
@@ -7,16 +17,10 @@ parse_args() {
             h) print_usage && return 1 ;;
         esac
     done
-    if [ -n "$ENV_FILE" ] && [ -f $ENV_FILE ] ; then
-        . $ENV_FILE
-    else
-        echo "error: $ENV_FILE not found" >&1
-        return 1
-    fi
     return 0
 }
 
-validate_args() {
+validate_env() {
     if [ -z "$GIT_URL" ] || [ -z "$GIT_BRANCH" ] || [ -z "$ROLES" ] || [ -z "$GPG_USER" ]; then
         print_usage
         return 1
