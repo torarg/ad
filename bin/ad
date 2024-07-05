@@ -17,7 +17,7 @@ for path in $CONFIG_DIR_OVERRIDES; do
 done
 
 if [ $CONFIG_LOADED -ne 1 ]; then
-    echo "error: unable to find config in: ${CONFIG_DIR_OVERRIDES}"
+    echo "error: unable to find config in: ${CONFIG_DIR_OVERRIDES}" >&2
     exit 1
 fi
 
@@ -58,7 +58,7 @@ parse_args() {
             full_command="echo ad $VERSION"
             ;;
         *)
-            echo "error: invalid command"
+            echo "error: invalid command" >&2
             echo $usage
             return 1
             ;;

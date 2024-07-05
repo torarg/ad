@@ -11,12 +11,15 @@ load_env() {
 
 parse_args() {
     VERBOSE=0
-    while getopts hv flag; do
+    while getopts :hv flag; do
         case "${flag}" in
             v) VERBOSE=1 ;;
             h) print_usage && return 1 ;;
+            ?) echo "error: invalid option -- $OPTARG" >&2 && return 1 ;;
         esac
     done
+    shift $(($OPTIND - 1))
+    [ -n "$1" ] && echo "error: invalid argument -- $@" >&2 && return 1
     return 0
 }
 

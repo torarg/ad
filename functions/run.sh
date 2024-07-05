@@ -5,10 +5,12 @@ print_usage() {
 }
 
 parse_args() {
-    VERBOSE=0
-    case "${1}" in
-        -h) print_usage && return 1 ;;
-    esac
+    while getopts :h flag; do
+        case "${flag}" in
+            h) print_usage && return 1 ;;
+            ?) ;;
+        esac
+    done
     return 0
 }
 
