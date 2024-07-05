@@ -22,7 +22,7 @@ parse_args() {
 
 validate_env() {
     if [ -z "$GIT_URL" ] || [ -z "$GIT_BRANCH" ] || [ -z "$ROLES" ] || [ -z "$GPG_USER" ]; then
-        print_usage
+        echo "error: missing variables in ad.env" >&2
         return 1
     fi
 }

@@ -1,9 +1,8 @@
 . $CONFIG_DIR/config || exit 1
+. $CONFIG_DIR/functions/show_roles.sh || exit 1
 
+parse_args $@ || exit 1
 load_env || exit 1
 validate_env || exit 1
 
-echo "ROLES"
-for role in $ROLES; do
-    echo $role;
-done
+print_roles

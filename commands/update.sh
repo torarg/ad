@@ -4,6 +4,7 @@
 parse_args $@ || exit 1
 load_env || exit 1
 validate_env || exit 1
+
 execute clone_roles_repo
 execute update_roles
 execute write_playbook
