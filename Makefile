@@ -4,6 +4,7 @@ BIN_PATH		= 	${PREFIX}/bin/ad
 COMMANDS_PATH		= 	$(CONFIG_PATH)/commands
 TEMPLATE_PATH		= 	$(CONFIG_PATH)/templates
 FUNCTIONS_PATH		= 	$(CONFIG_PATH)/functions
+COMPLETIONS_PATH	= 	$(CONFIG_PATH)/shell_completions
 OPENBSD_PORTS_DIR	= 	/usr/ports/sysutils/ad
 OPENBSD_PKG_DIR		= 	/usr/ports/packages/amd64/all
 OPENBSD_SIGNED_PKG_DIR	= 	/usr/ports/packages/amd64/all/signed
@@ -17,9 +18,11 @@ install:
 	cp -r ./templates $(CONFIG_PATH)/
 	cp -r ./commands $(CONFIG_PATH)/
 	cp -r ./functions $(CONFIG_PATH)/
+	cp -r ./shell_completions $(CONFIG_PATH)/
 	chmod -R 755 $(COMMANDS_PATH)
 	chmod -R 755 $(TEMPLATE_PATH)
 	chmod -R 755 $(FUNCTIONS_PATH)
+	chmod -R 755 $(COMPLETIONS_PATH)
 
 uninstall:
 	rm -r $(CONFIG_PATH) $(BIN_PATH)
