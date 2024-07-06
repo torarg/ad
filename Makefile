@@ -1,15 +1,15 @@
-PREFIX			?=	/usr/local
-CONFIG_PATH		=	${PREFIX}/share/ad
-BIN_PATH		= 	${PREFIX}/bin/ad
-COMMANDS_PATH		= 	$(CONFIG_PATH)/commands
-TEMPLATE_PATH		= 	$(CONFIG_PATH)/templates
-FUNCTIONS_PATH		= 	$(CONFIG_PATH)/functions
-COMPLETIONS_PATH	= 	$(CONFIG_PATH)/shell_completions
-OPENBSD_PORTS_DIR	= 	/usr/ports/sysutils/ad
-OPENBSD_PKG_DIR		= 	/usr/ports/packages/amd64/all
+PREFIX					?=	/usr/local
+CONFIG_PATH				=	${PREFIX}/share/ad
+BIN_PATH				= 	${PREFIX}/bin/ad
+COMMANDS_PATH			= 	$(CONFIG_PATH)/commands
+TEMPLATE_PATH			= 	$(CONFIG_PATH)/templates
+FUNCTIONS_PATH			= 	$(CONFIG_PATH)/functions
+COMPLETIONS_PATH		= 	$(CONFIG_PATH)/shell_completions
+OPENBSD_PORTS_DIR		= 	/usr/ports/sysutils/ad
+OPENBSD_PKG_DIR			= 	/usr/ports/packages/amd64/all
 OPENBSD_SIGNED_PKG_DIR	= 	/usr/ports/packages/amd64/all/signed
-OPENBSD_PKG_KEY		= 	~/keys/signify/1wilson-pkg.sec
-OPENBSD_PKG_HOST	=	www
+OPENBSD_PKG_KEY			= 	~/keys/signify/1wilson-pkg.sec
+OPENBSD_PKG_HOST		=	www
 
 install:
 	install -m 0755 -d $(CONFIG_PATH)
@@ -58,3 +58,8 @@ publish-openbsd-package: openbsd-package
 		doas rm ad-*.tgz && \
 		doas chown www /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/ad-*.tgz && \
 		doas chown www /var/www/htdocs/pub/OpenBSD/7.5/packages/amd64/ad-*.tgz"
+
+bumpversion:
+	VERSION=$$(head -1 < CHANGELOG.md | awk '{ print $$2 }')  && \
+		sed -i "s/^V.*=.*$$/V				=	$$VERSION/g" openbsd_package/Makefile && \
+		sed -i "s/^VERSION=.*$$/VERSION=$$VERSION/g" bin/ad
