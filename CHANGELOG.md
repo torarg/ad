@@ -1,5 +1,3 @@
-# changelog
-
 ## 0.0.3
 - add optional shell completion support for ksh
 - improve usage
