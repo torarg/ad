@@ -169,3 +169,9 @@ check_environment() {
             ;;
     esac
 }
+
+print_list() {
+    for element in $@; do
+        echo $element
+    done
+}

@@ -5,4 +5,4 @@ parse_args $@ || exit 1
 load_env || exit 1
 validate_env || exit 1
 
-print_roles
+print_list $ROLES
