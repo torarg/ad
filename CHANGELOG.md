@@ -1,6 +1,9 @@
 # changelog
 
 ## 0.0.3
+- add optional shell completion support for ksh
+- improve usage
+- add "show-{hosts,groups,groupvars,roles}" commands
 - drop deployment arguments and only support ``-f``
 - support relative paths for ``-f`` without explicit "./"
 
