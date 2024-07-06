@@ -22,7 +22,8 @@ if [ $CONFIG_LOADED -ne 1 ]; then
 fi
 
 usage="usage: ad [-hV] command [arg ...]"
-commands="commands: init update clean run show-roles show-hosts show-groups"
+commands="main commands: init update clean run"
+commands="${commands}\nshow commands: show-hosts show-roles show-groups show-groupvars"
 parse_args() {
     if [ $# -lt 1 ]; then
         echo $usage
@@ -53,6 +54,9 @@ parse_args() {
             ;;
         show-groups)
             full_command="${full_command}/show_groups.sh $@"
+            ;;
+        show-groupvars)
+            full_command="${full_command}/show_groupvars.sh $@"
             ;;
         -h)
             full_command="echo $usage\n$commands"
