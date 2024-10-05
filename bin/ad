@@ -22,7 +22,7 @@ if [ $CONFIG_LOADED -ne 1 ]; then
 fi
 
 usage="usage: ad [-hV] command [arg ...]"
-commands="main commands: init update clean run"
+commands="main commands: init update clean run push-roles"
 commands="${commands}\nshow commands: show-hosts show-roles show-groups show-groupvars"
 parse_args() {
     if [ $# -lt 1 ]; then
@@ -36,33 +36,47 @@ parse_args() {
     case "$command" in
         init)
             full_command="${full_command}/init.sh $@"
+            args="$@"
             ;;
         clean)
             full_command="${full_command}/clean.sh $@"
+            args="$@"
             ;;
         update)
             full_command="${full_command}/update.sh $@"
+            args="$@"
             ;;
         run)
             full_command="${full_command}/run.sh $@"
+            args="$@"
+            ;;
+        push-roles)
+            full_command="${full_command}/push_roles.sh"
+            args="$@"
             ;;
         show-roles)
-            full_command="${full_command}/show_roles.sh $@"
+            full_command="${full_command}/show_roles.sh"
+            args="$@"
             ;;
         show-hosts)
-            full_command="${full_command}/show_hosts.sh $@"
+            full_command="${full_command}/show_hosts.sh"
+            args="$@"
             ;;
         show-groups)
-            full_command="${full_command}/show_groups.sh $@"
+            full_command="${full_command}/show_groups.sh"
+            args="$@"
             ;;
         show-groupvars)
-            full_command="${full_command}/show_groupvars.sh $@"
+            full_command="${full_command}/show_groupvars.sh"
+            args="$@"
             ;;
         -h)
             full_command="echo $usage\n$commands"
+            args="$@"
             ;;
         -V)
             full_command="echo ad $VERSION"
+            args="$@"
             ;;
         *)
             echo "error: invalid command" >&2
@@ -74,4 +88,4 @@ parse_args() {
 
 parse_args $@ || exit 1
 check_environment || exit 1
-CONFIG_DIR="$CONFIG_DIR" $full_command
+CONFIG_DIR="$CONFIG_DIR" $full_command "$args"
