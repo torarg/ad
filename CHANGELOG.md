@@ -1,4 +1,7 @@
 ## 0.0.4
+- refactor repo and Makefile
+- improve shell completions
+- add 'show-hostvars' command
 - add 'push-roles' command to push deployment-local changes upstream
 - add pycache patterns to default .gitignore contents
 
