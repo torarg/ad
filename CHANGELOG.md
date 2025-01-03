@@ -1,5 +1,6 @@
 ## 0.0.4
 - add 'push-roles' command to push deployment-local changes upstream
+- add pycache patterns to default .gitignore contents
 
 ## 0.0.3
 - add optional shell completion support for ksh
