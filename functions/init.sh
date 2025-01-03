@@ -13,6 +13,8 @@ create_dirs() {
 
 initialize_deployment_repo() {
     echo ".roles/" > .gitignore
+    echo "*.pyc" >> .gitignore
+    echo "__pycache__" >> .gitignore
     echo "inventory/** filter=git-crypt diff=git-crypt" > $GITATTRIBUTES_FILE
     echo "host_vars/** filter=git-crypt diff=git-crypt" >> $GITATTRIBUTES_FILE
     echo "group_vars/** filter=git-crypt diff=git-crypt" >> $GITATTRIBUTES_FILE
