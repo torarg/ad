@@ -6,6 +6,8 @@ OPENBSD_PORTS_DIR              =       /usr/ports/sysutils/$(NAME)
 OPENBSD_PKG_DIR                        =       /usr/ports/packages/amd64/all
 OPENBSD_SIGNED_PKG_DIR =       /usr/ports/packages/amd64/all/signed
 OPENBSD_PKG_KEY                        =       ~/keys/signify/1wilson-pkg.sec
+OPENBSD_PKG_HOST               =       www
+
 
 install:
 	install -m 0755 -d $(CONFIG_PATH)
@@ -21,15 +23,16 @@ all:
 
 clean:
 
-clean-openbsd-package:
+clean-pkg:
 	rm -fr /usr/ports/pobj/$(NAME)-*
 	rm -fr rm  -r /usr/ports/plist/amd64/$(NAME)-*
 	rm -fr /usr/ports/pobj/$(NAME)-*/
 	rm -fr /usr/ports/packages/amd64/all/$(NAME)-*.tgz
+	rm -fr $(OPENBSD_SIGNED_PKG_DIR)/$(NAME)-*.tgz
 	rm -fr /usr/ports/distfiles/$(NAME)-*.tar.gz
 	rm -fr $(OPENBSD_PORTS_DIR)
 
-openbsd-package: clean-openbsd-package
+pkg: clean-pkg
 	cp -r openbsd_package/ $(OPENBSD_PORTS_DIR)
 	cd /usr/ports/sysutils/$(NAME) && \
 	  make clean && \
@@ -40,7 +43,7 @@ openbsd-package: clean-openbsd-package
 	  make package
 	pkg_sign -C -o $(OPENBSD_SIGNED_PKG_DIR) -S $(OPENBSD_PKG_DIR) -s signify2 -s $(OPENBSD_PKG_KEY)
 
-publish-openbsd-package: openbsd-package
+publish-pkg: pkg
 	scp $(OPENBSD_SIGNED_PKG_DIR)/$(NAME)-*.tgz www:
 	ssh $(OPENBSD_PKG_HOST) "\
 		doas cp $(NAME)-*.tgz /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/ && \
@@ -62,4 +65,4 @@ release-tag:
 publish-tag:
 	git push --tags
 
-release: bumpversion release-tag publish-openbsd-package publish-tag
+release: bumpversion release-tag publish-pkg publish-tag
