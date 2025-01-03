@@ -60,9 +60,11 @@ bumpversion:
 		git commit -m "bump version to $$VERSION"
 
 release-tag:
-	git tag $$VERSION
+	VERSION=$$(head -1 < CHANGELOG.md | awk '{ print $$2 }') && \
+		git tag $$VERSION
 
 publish-tag:
+	git push
 	git push --tags
 
 release: bumpversion release-tag publish-tag publish-pkg
