@@ -55,8 +55,8 @@ publish-pkg: pkg
 bumpversion:
 	VERSION=$$(head -1 < CHANGELOG.md | awk '{ print $$2 }')  && \
 		sed -i "s/^V.*=.*$$/V				=	$$VERSION/g" openbsd_package/Makefile && \
-		sed -i "s/^VERSION=.*$$/VERSION=$$VERSION/g" bin/$(NAME) && \
-		git add openbsd_package/Makefile bin/$(NAME) && \
+		sed -i "s/^VERSION=.*$$/VERSION=$$VERSION/g" src/bin/$(NAME) && \
+		git add openbsd_package/Makefile src/bin/$(NAME) && \
 		git commit -m "bump version to $$VERSION"
 
 release-tag:
@@ -65,4 +65,4 @@ release-tag:
 publish-tag:
 	git push --tags
 
-release: bumpversion release-tag publish-pkg publish-tag
+release: bumpversion release-tag publish-tag publish-pkg
