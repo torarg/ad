@@ -1,3 +1,6 @@
+## 0.0.5
+- add ``-s`` silent flag to run command
+
 ## 0.0.4
 - refactor repo and Makefile
 - improve shell completions
