@@ -35,19 +35,19 @@ parse_args() {
     full_command="/bin/sh $COMMAND_DIR"
     case "$command" in
         init)
-            full_command="${full_command}/init.sh $@"
+            full_command="${full_command}/init.sh"
             args="$@"
             ;;
         clean)
-            full_command="${full_command}/clean.sh $@"
+            full_command="${full_command}/clean.sh"
             args="$@"
             ;;
         update)
-            full_command="${full_command}/update.sh $@"
+            full_command="${full_command}/update.sh"
             args="$@"
             ;;
         run)
-            full_command="${full_command}/run.sh $@"
+            full_command="${full_command}/run.sh"
             args="$@"
             ;;
         push-roles)
