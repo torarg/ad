@@ -1,6 +1,9 @@
   - name: include role ${role_name}
-    import_role:
+    include_role:
         name: ${role_name}
+        apply:
+          tags:
+          - ${group_name}
     when: '"${group_name}" in group_names'
     tags:
-      - ${group_name}
+    - always

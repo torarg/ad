@@ -1,3 +1,6 @@
+## 0.0.6
+- use 'include_role' instead of 'import_role' in playbook tasks.
+
 ## 0.0.5
 - add ``-s`` silent flag to run command
 
